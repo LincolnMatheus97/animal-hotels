@@ -80,9 +80,5 @@ server.use(router);
 
 //start server
 server.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
-    console.log('📚 Rotas disponíveis:');
-    console.log('   POST /login (pública)');
-    console.log('   GET/POST/PUT/DELETE /tutores (protegida)');
-    console.log('   GET/POST/PUT/DELETE /animais (protegida)');
+    console.log(`💫 Servidor rodando em http://localhost:${PORT}`);
 })
