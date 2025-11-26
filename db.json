@@ -22,5 +22,15 @@
       "cidade": "Floriano"
     }
   ],
-  "animais": []
+  "animais": [
+    {
+      "nome": "Lika",
+      "especie": "Gato",
+      "raca": "American Shorthair",
+      "idade": "10",
+      "imagem": "https://i.imgur.com/BrynNjb.jpeg",
+      "tutorId": "1",
+      "id": 1
+    }
+  ]
 }
