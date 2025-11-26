@@ -65,7 +65,7 @@ export function Home() {
                             <p>📍 {tutor.cidade}</p>
                         </div>
                         <div className="actions">
-                            <button className="btn-outline">Ver Animais</button>
+                            <button className="btn-outline" onClick={() => navigate(`/tutor/${tutor.id}/animais`)}>Ver Animais</button>
                             <button className="btn-outline" onClick={() => navigate(`/tutor/editar/${tutor.id}`)}>Editar</button>
                             <button className="btn-dangers" onClick={() => handleDeletarTutor(tutor.id)}>Excluir</button>
                         </div>
