@@ -17,9 +17,13 @@ server.use(jsonServer.bodyParser);
 server.post('/login', (req, res) => {
     const { email, senha } = req.body;
 
+    if(!email || !senha){
+        return res.status(400).json({erro: "Email e senha são obrigatórios"});
+    }
+
     //buscar usuario no db.json
     const db = router.db;
-    const usuario = db.get('usuarios').find({email, senha}).value();
+    const usuario = db.get('usuarios').find({ email }).value();
 
     if(!usuario){
         return res.status(401).json({erro: "Email ou senha incorretos"});
@@ -73,6 +77,28 @@ server.use(/^(?!\/login).*$/, (req , res, next) => {
         return res.status(403).json({erro: "Token Invalido"})
     }
 })
+
+
+// Middleware para validar tutorId ao criar/atualizar animal
+server.use((req, res, next) => {
+    if (req.path === '/animais' && (req.method === 'POST' || req.method === 'PUT')) {
+        const { tutorId } = req.body;
+
+
+        if (!tutorId) {
+            return res.status(400).json({ erro: 'Campo ID do tutor é obrigatório' });
+        }
+
+        const db = router.db;
+        const tutorExiste = db.get('tutores').find({ id: tutorId }).value();
+
+        if (!tutorExiste) {
+            return res.status(400).json({ erro: 'Tutor não encontrado' });
+        }
+    }
+
+    next();
+});
 
 // ROTAS do jsonserver - todas as rotas ja sao criadas
 server.use(router);
