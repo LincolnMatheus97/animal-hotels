@@ -1,4 +1,13 @@
 {
+  "usuarios": [
+    {
+      "id": "1",
+      "email": "admin@animal.com",
+      "senha": "$1$W1K0X6.i$aamorMuqSlD0YEwLscW4Y0",
+      "nome": "Administrador"
+
+    }
+  ],
   "tutores": [
     {
       "id": "1",
@@ -22,5 +31,22 @@
       "cidade": "Floriano"
     }
   ],
-  "animais": []
+  "animais": [
+    {
+      "id":"1",
+      "nome": "Lika",
+      "especie": "gato",
+      "idade": "5",
+      "tutor": "1",
+      "foto": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2025/09/decifrar-o-que-seu-gato-quer-dizer.jpg?w=1200&h=1200&crop=1"
+    },
+    {
+      "id":"2",
+      "nome": "Elizabeth",
+      "especie": "cachorro",
+      "idade": "8",
+      "tutor": "1",
+      "foto": "https://www.portaldodog.com.br/wp-content/uploads/2023/10/cachorro-nao-dorme-a-noite-300x300.jpg"
+    }
+  ]
 }
