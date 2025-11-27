@@ -9,10 +9,6 @@
 #### Para acessar o projeto online clique no link abaixo:
 - [Animal - Hotels](https://animal-hotels-taupe.vercel.app/)
 
-``` bash
-  Login de teste: admin@animal.com
-  Senha de teste: 1234
-```
 #### Para rodar o projeto localmente siga os passos abaixo:
 
 1 - Clone o repositório:
@@ -29,7 +25,4 @@
 ```bash
   npm run dev -> O frontend rodará 
   npm run api -> O backend rodará
-  e as credencias serão:
-    Login: admin@animal.com
-    Senha: 1234
 ```
