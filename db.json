@@ -1,4 +1,12 @@
 {
+  "usuarios": [
+    {
+      "id": "1",
+      "email": "admin@animal.com",
+      "senha": "$2b$10$ysrSTFS/oEzzPowGBKUPxeN7di1joMnAHoKP8EHgnmRR5m4cEXwle",
+      "nome": "Administrador"
+    }
+  ],
   "tutores": [
     {
       "id": "1",
