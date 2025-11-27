@@ -6,23 +6,24 @@ import { EditarTutor } from "../pages/EditarTutor";
 import { AnimaisTutor } from "../pages/AnimaisTutor";
 import { CriarAnimal } from "../pages/CriarAnimal";
 import { EditarAnimal } from "../pages/EditarAnimal";
+import { RotasPrivadas } from "./RotasPrivadas";
 
 export function AppRoutes() {
     return(
         <Routes>
             <Route path="/" element={<Login />} />
 
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<RotasPrivadas> <Home/> </RotasPrivadas>} />
 
-            <Route path="/tutor/novo" element={<CriarTutor />} />
+            <Route path="/tutor/novo" element={<RotasPrivadas>  <CriarTutor/> </RotasPrivadas>} />
 
-            <Route path="/tutor/editar/:id" element={<EditarTutor/>} />
+            <Route path="/tutor/editar/:id" element={<RotasPrivadas> <EditarTutor/> </RotasPrivadas>} />
 
-            <Route path="/tutor/:id/animais" element={<AnimaisTutor/>} />
+            <Route path="/tutor/:id/animais" element={<RotasPrivadas> <AnimaisTutor/> </RotasPrivadas>} />
 
-            <Route path="/tutor/:id/animal/novo" element={<CriarAnimal/>} />
+            <Route path="/tutor/:id/animal/novo" element={<RotasPrivadas> <CriarAnimal/> </RotasPrivadas>} />
 
-            <Route path="/animal/editar/:id" element={<EditarAnimal />} />
+            <Route path="/animal/editar/:id" element={<RotasPrivadas> <EditarAnimal/> </RotasPrivadas>} />
 
             <Route path="*" element={<Login />} />
         </Routes>
