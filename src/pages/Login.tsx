@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import './Login.css'
+import { api } from "../services/api";
 
 export function Login() {
     const [email, setEmail] = useState('');
@@ -8,16 +9,32 @@ export function Login() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         console.log('Dados de Login:', {email, senha});
 
-        if (email && senha) {
-            alert('Login realizado com sucesso! (Simulado)');
+        try {
+            const response = await api.post('/login', {
+                email: email,
+                senha: senha
+            });
+
+            const { token, usuario } = response.data;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('usuarioNome', usuario.nome);
+
+            alert(`Bem vindo, ${usuario.nome}!`);
+
             navigate('/home');
-        } else {
-            alert('Preencha todos os campos!');
+        } catch (error: any) {
+            console.log(error);
+            if (error.response.status === 401) {
+                alert('Email ou senha incorretos!');
+            } else {
+                alert('Erro ao fazer login. Verifique se o servidor está rodando');
+            }   
         }
     };
 

@@ -13,8 +13,9 @@ interface Tutor {
 
 export function Home() {
     const [tutores, setTutores] = useState<Tutor[]>([]);
-
     const navigate = useNavigate();
+
+    const usuarioLogado = localStorage.getItem('usuarioNome') || 'Usuário';
 
     useEffect(() => {
         async function carregarTutores() {
@@ -46,11 +47,26 @@ export function Home() {
         }
     }
 
+    function handleDeslogar() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuarioNome');
+
+        navigate('/');
+    } 
+
     return (
         <div className="home-container">
             <header>
-                <h1>Gestão de Tutores 🐶</h1>
-                <button className="btn-add" onClick={() => navigate('/tutor/novo')}>+ Novo Tutor</button>
+                <div>
+                    <h1>Gestão de Tutores 🐶</h1>
+                    <p style={{ fontSize: '0.9rem', color: '#666' }}>Olá, {usuarioLogado}</p>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button className="btn-outline" onClick={handleDeslogar}>Sair</button>
+                    <button className="btn-add" onClick={() => navigate('/tutor/novo')}>+ Novo Tutor</button>
+                </div>
+
             </header>
 
             <div className="list-container">
