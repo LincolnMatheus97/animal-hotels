@@ -1,6 +1,7 @@
 const jsonServer = require('json-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
 
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
@@ -8,6 +9,8 @@ const middlewares = jsonServer.defaults();
 
 const SECRET_KEY = 'segredo-super-secreto-123';
 const PORT = process.env.PORT || 3000;
+
+server.use(cors());
 
 // Middlewares do json-server
 server.use(middlewares);
