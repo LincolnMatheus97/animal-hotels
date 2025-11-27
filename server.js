@@ -7,7 +7,7 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
 const SECRET_KEY = 'segredo-super-secreto-123';
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares do json-server
 server.use(middlewares);
