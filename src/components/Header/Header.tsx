@@ -1,11 +1,7 @@
 import { Button } from "../Button/Button";
 import { LogOut } from 'lucide-react'
 import './Header.css';
-
-interface HeaderProps {
-    nomeUsuario: string;
-    onLogout?: () => void;
-}
+import { HeaderProps } from "../../types/types";
 
 export function Header({ nomeUsuario, onLogout }: HeaderProps) {
     return (

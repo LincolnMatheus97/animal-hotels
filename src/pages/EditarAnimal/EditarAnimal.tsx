@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
 import './EditarAnimal.css';
+import { ToastContext } from '../../context/ToastProvider';
 
 export function EditarAnimal() {
   const [nome, setNome] = useState('');
@@ -15,6 +16,9 @@ export function EditarAnimal() {
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const context = useContext(ToastContext);
+    const { showToast } = context;
 
   useEffect(() => {
     async function carregarAnimal() {
@@ -29,7 +33,7 @@ export function EditarAnimal() {
             setTutorId(response.data.tutorId);
 
         } catch (error) {
-            alert("Erro ao buscar dados do animal");
+            showToast({ message: 'Erro ao buscar dados do animal', type: 'error' });
             navigate('/home');
         }
     }
@@ -50,11 +54,11 @@ export function EditarAnimal() {
 
         try {
             await api.put(`/animais/${id}`, animalAtualizado);
-            alert('Animal atualizado com sucesso!');
+            showToast({ message: 'Animal atualizado com sucesso!', type: 'success' });
             navigate(`/tutor/${tutorId}/animais`);
         } catch (error) {
             console.error(error);
-            alert('Erro ao atualizar animal.');
+            showToast({ message: 'Erro ao atualizar animal.', type: 'error' });
         }
   }
 
@@ -97,10 +101,10 @@ export function EditarAnimal() {
                 />
 
                 <div className="actions">
-                    <Button type="submit" variant="enter">Salvar Alterações</Button>
                     <Button type="button" variant="cancelar" onClick={() => navigate(`/tutor/${tutorId}/animais`)}>
                         Cancelar
                     </Button>
+                    <Button type="submit" variant="enter">Salvar Alterações</Button>
                 </div>
             </form>
         </div>

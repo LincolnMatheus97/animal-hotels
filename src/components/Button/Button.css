@@ -14,14 +14,24 @@
 
 }
 
+.btn-cancelar {
+    background: #fff;
+    width: 100%;
+    color: #5a4438;
+    border: 1px solid #5a4438;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
 
-/* Variante Primary (padrão) */
+.btn-cancelar:hover:not(:disabled) {
+    transform: scale(0.95);
+}
+
 .btn-enter {
     background: linear-gradient(135deg, #f77c34 0%, #f05f6f 100%);
     color: white;
     width: 100%;
-    font-size: 1.1rem;
-    margin-top: 1rem;
     padding: 15px 20px;
     border-radius: 10px;
 }
@@ -30,8 +40,6 @@
     transform: scale(0.95);
      filter: brightness(1.1);
 }
-
-/* Variante Secondary */
 
 .btn-logout {
     padding: 10px 20px;
@@ -99,18 +107,6 @@
     transform: scale(1.05);
 }
 
-.btn-cancelar {
-    background: #fff;
-    color: #5a4438;
-    border: 1px solid #5a4438;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: transform 0.2s ease;
-}
-
-.btn-cancelar:hover:not(:disabled) {
-    transform: scale(0.95);
-}
 
 .btn-back {
     background: #f0f0f0;

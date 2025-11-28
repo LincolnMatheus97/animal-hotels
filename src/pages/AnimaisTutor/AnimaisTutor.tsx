@@ -1,32 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { Button } from "../../components/Button/Button";
-import {PawPrint} from 'lucide-react';
+import { PawPrint } from 'lucide-react';
 import './AnimaisTutor.css';
 import { AnimalCard } from "../../components/AnimalCard/AnimalCard";
-
-interface Animal {
-    id: string;
-    especie: string;
-    nome: string;
-    raca: string;
-    idade: string;
-    tutorId: string;
-    imagem: string;
-}
-
-interface Tutor {
-    id: string;
-    nome: string;
-}
+import { Animal, Tutor } from "../../types/types";
+import { ToastContext } from "../../context/ToastProvider";
+import { ConfirmModal } from "../../components/ConfirmModal/ConfirmModal";
 
 export function AnimaisTutor() {
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const context = useContext(ToastContext);
+    const { showToast } = context;
+
     const [tutor, setTutor] = useState<Tutor | null>(null);
     const [animais, setAnimais] = useState<Animal[]>([]);
+
+    const [modalAberto, setModalAberto] = useState(false);
+    const [animalParaDeletar, setAnimalParaDeletar] = useState<string | null>(null);
+    const [nomeAnimal, setNomeAnimal] = useState('');
+
 
     useEffect(() => {
         async function carregarDados() {
@@ -38,23 +34,33 @@ export function AnimaisTutor() {
                 setAnimais(resposeAnimais.data);
             } catch (error) {
                 console.log(error);
-                alert("Erro carregar dados.");
+                showToast({ message: "Erro carregar dados.", type: "error" });
             }
         }
         carregarDados();
     }, [id]);
 
-    async function handleDeletarAnimal(animalId: string) {
-        const confirmou = confirm("Tem certeza que deseja excluir este animal?");
+    function abrirModalDeletar(animalId: string, nome: string) {
+        setAnimalParaDeletar(animalId);
+        setNomeAnimal(nome);
+        setModalAberto(true);
+    }
 
-        if (!confirmou) return;
+    function fecharModal() {
+        setModalAberto(false);
+        setAnimalParaDeletar(null);
+    }
+
+    async function handleDeletarAnimal(animalId: string) {
+        if (!animalParaDeletar) return;
 
         try {
             await api.delete(`/animais/${animalId}`);
             const listaAtualizada = animais.filter(animal => animal.id !== animalId);
             setAnimais(listaAtualizada);
+            showToast({ message: "Animal excluido com sucesso!", type: "success" });
         } catch (error) {
-            alert("Erro ao excluir animal.");
+            showToast({ message: "Erro ao excluir animal.", type: "error" });
         }
     }
 
@@ -71,18 +77,28 @@ export function AnimaisTutor() {
             <div className="list-animais">
                 {animais.length === 0 && <p>Este tutor ainda não possui animais cadastrados.</p>}
                 {animais.map((animal) => (
-                        <AnimalCard
-                            key={animal.id}
-                            nome={animal.nome}
-                            especie={animal.especie}
-                            raca={animal.raca}
-                            idade={animal.idade}
-                            imagem={animal.imagem}
-                            onClickEdit={() => navigate(`/animal/${animal.id}/editar`)}
-                            onClickDelete={() => handleDeletarAnimal(animal.id)}
-                        />
+                    <AnimalCard
+                        key={animal.id}
+                        nome={animal.nome}
+                        especie={animal.especie}
+                        raca={animal.raca}
+                        idade={animal.idade}
+                        imagem={animal.imagem}
+                        onClickEdit={() => navigate(`/animal/${animal.id}/editar`)}
+                        onClickDelete={() => abrirModalDeletar(animal.id, animal.nome)}
+                    />
                 ))}
             </div>
+            {modalAberto && animalParaDeletar && (
+                <ConfirmModal
+                    nomeEntidade={nomeAnimal}
+                    onCancel={() => fecharModal()}
+                    onConfirm={() => {
+                        handleDeletarAnimal(animalParaDeletar);
+                        setModalAberto(false);
+                    }}
+                />
+            )}
         </div>
     );
 }

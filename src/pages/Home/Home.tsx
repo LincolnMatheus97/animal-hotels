@@ -1,22 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import './Home.css';
 import { Header } from "../../components/Header/Header";
 import { Button } from "../../components/Button/Button";
 import { TutorCard } from "../../components/TutorCard/TutorCard";
-
-interface Tutor {
-    id: string;
-    nome: string;
-    email: string;
-    telefone: string;
-    cidade: string;
-}
+import { Tutor } from "../../types/types";
+import { ToastContext } from "../../context/ToastProvider";
+import { ConfirmModal } from "../../components/ConfirmModal/ConfirmModal";
 
 export function Home() {
     const [tutores, setTutores] = useState<Tutor[]>([]);
+
+    const [modalAberto, setModalAberto] = useState(false);
+    const [tutorParaDeletar, setTutorParaDeletar] = useState<string | null>(null);
+    const [nomeUsuario, setNomeUsuario] = useState('');
+
     const navigate = useNavigate();
+
+    const context = useContext(ToastContext);
+    const { showToast } = context;
 
     const usuarioLogado = localStorage.getItem('usuarioNome') || 'Usuário';
 
@@ -26,26 +29,35 @@ export function Home() {
                 const response = await api.get('/tutores');
                 setTutores(response.data);
             } catch (error) {
-                alert('Erro ao buscar tutores');
+                showToast({ message: 'Erro ao carregar tutores. Tente novamente mais tarde.', type: 'error' });
                 console.error(error);
             }
         }
         carregarTutores();
     }, []);
 
-    async function handleDeletarTutor(id: string) {
-        const confirmou = confirm("Tem certeza que deseja excluir este tutor?");
+    function abrirModalDeletar(id: string, nome: string) {
+        setTutorParaDeletar(id);
+        setNomeUsuario(nome);
+        setModalAberto(true);
+    }
 
-        if (!confirmou) return;
+    function fecharModal() {
+        setModalAberto(false);
+        setTutorParaDeletar(null);
+    }
+
+    async function confirmarDelecao() {
+        if (!tutorParaDeletar) return;
 
         try {
-            await api.delete(`/tutores/${id}`);
-            const listaAtualizada = tutores.filter(tutor => tutor.id !== id);
+            await api.delete(`/tutores/${tutorParaDeletar}`);
+            const listaAtualizada = tutores.filter(tutor => tutor.id !== tutorParaDeletar);
             setTutores(listaAtualizada);
-
-            alert("Tutor excluido com sucesso!");
+            showToast({ message: "Tutor excluido com sucesso!", type: "success" });
+            fecharModal();
         } catch (error) {
-            alert("Erro ao excluir tutor");
+            showToast({ message: "Erro ao excluir tutor", type: "error" });
             console.error(error);
         }
     }
@@ -53,7 +65,7 @@ export function Home() {
     function handleDeslogar() {
         localStorage.removeItem('token');
         localStorage.removeItem('usuarioNome');
-
+        showToast({ message: "Deslogado com sucesso!", type: "success" });
         navigate('/');
     }
 
@@ -83,11 +95,14 @@ export function Home() {
                             cidade={tutor.cidade}
                             onClickVer={() => navigate(`/tutor/${tutor.id}/animais`)}
                             onClickEdit={() => navigate(`/tutor/editar/${tutor.id}`)}
-                            onClickDelete={() => handleDeletarTutor(tutor.id)}
+                            onClickDelete={() => abrirModalDeletar(tutor.id, tutor.nome)}
                         />
                     ))}
                 </div>
             </div>
+            {modalAberto && (
+                <ConfirmModal nomeEntidade={nomeUsuario} onCancel={fecharModal} onConfirm={confirmarDelecao} />
+            )}
         </div>
     )
 }

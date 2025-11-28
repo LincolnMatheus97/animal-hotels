@@ -1,17 +1,7 @@
 import { Button } from "../Button/Button";
 import { Card } from "../Card/Card";
 import './TutorCard.css';
-
-interface TutorCardProps {
-    key: string;
-    nome: string;
-    email: string;
-    telefone: string;
-    cidade: string;
-    onClickVer: () => void;
-    onClickEdit: () => void;
-    onClickDelete: () => void;
-}
+import { TutorCardProps } from "../../types/types";
 
 export function TutorCard({nome, email, telefone, cidade, onClickVer, onClickEdit, onClickDelete }: TutorCardProps) {
     return (

@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
+import { ToastContext } from '../../context/ToastProvider';
 
 export function EditarTutor() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
     const [cidade, setCidade] = useState('');
+
+    const context = useContext(ToastContext)
+    const { showToast } = context;
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -22,7 +26,7 @@ export function EditarTutor() {
                 setTelefone(response.data.telefone);
                 setCidade(response.data.cidade);
             } catch (error) {
-                alert('Erro ao buscar dados do tutor');
+                showToast({ message: 'Erro ao buscar dados do tutor', type: 'error' });
                 navigate('/home');
             }
         }
@@ -41,11 +45,11 @@ export function EditarTutor() {
 
         try {
             await api.put(`/tutores/${id}`, dadosAtualizados);
-            alert('Tutor atualizado com sucesso!');
+            showToast({ message: 'Tutor atualizado com sucesso!', type: 'success' });
             navigate('/home');
         } catch (error) {
             console.log(error);
-            alert('Erro ao atualizar tutor.');
+            showToast({ message: 'Erro ao atualizar tutor.', type: 'error' });
         }
     }
 
@@ -84,10 +88,10 @@ export function EditarTutor() {
                     />
 
                     <div className='actions'>
-                        <Button type="submit" variant="enter">Salvar Alteração</Button>
                         <Button type="button" variant="cancelar" onClick={() => navigate('/home')}>
                             Cancelar
                         </Button>
+                        <Button type="submit" variant="enter">Salvar Alteração</Button>
                     </div>
                 </form>
             </div>
