@@ -46,17 +46,8 @@
       "raca": "American Shorthair",
       "idade": "10",
       "imagem": "",
-      "tutorId": "f-dtT07",
-      "id": 3
-    },
-    {
-      "nome": "jubiter",
-      "especie": "Gato",
-      "raca": "American Shorthair",
-      "idade": "10",
-      "imagem": "",
       "tutorId": "2",
-      "id": 4
+      "id": 2
     }
   ]
 }
