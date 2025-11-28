@@ -8,6 +8,11 @@
 
 #### Para acessar o projeto online clique no link abaixo:
 - [Animal - Hotels](https://animal-hotels-taupe.vercel.app/)
+- Credênciais teste de acesso:
+```bash
+  Login: admin@animal.com
+  Senha: 1234
+```
 
 #### Para rodar o projeto localmente siga os passos abaixo:
 
