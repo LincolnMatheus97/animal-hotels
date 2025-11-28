@@ -1,0 +1,43 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #f77c34;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+
+.input-group input {
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+    color: #333;
+}
+
+.input-group input:focus {
+    border-color: #f05f6f;
+    box-shadow: 0 0 0 3px rgba(240, 95, 111, 0.1);
+}
+
+
+.input-group .error-message {
+    font-size: 12px;
+    color: #ff6b6b;
+    margin-top: -4px;
+}
+
+.input-group input::placeholder {
+    color: #999;
+}

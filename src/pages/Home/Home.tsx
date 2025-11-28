@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { api } from "../services/api";
+import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import './Home.css';
+import { Header } from "../../components/Header/Header";
+import { Button } from "../../components/Button/Button";
+import { TutorCard } from "../../components/TutorCard/TutorCard";
 
 interface Tutor {
     id: string;
@@ -52,41 +55,38 @@ export function Home() {
         localStorage.removeItem('usuarioNome');
 
         navigate('/');
-    } 
+    }
 
     return (
         <div className="home-container">
-            <header>
-                <div>
-                    <h1>Gestão de Tutores 🐶</h1>
-                    <p style={{ fontSize: '0.9rem', color: '#666' }}>Olá, {usuarioLogado}</p>
-                </div>
-                
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <button className="btn-outline" onClick={handleDeslogar}>Sair</button>
-                    <button className="btn-add" onClick={() => navigate('/tutor/novo')}>+ Novo Tutor</button>
-                </div>
+            <Header nomeUsuario={usuarioLogado} onLogout={handleDeslogar} />
 
-            </header>
 
             <div className="list-container">
-                {tutores.length === 0 && <p>Nenhum Tutor Cadastrado.</p>}
-
-                {tutores.map((tutor) => (
-                    <div key={tutor.id} className="tutor-card">
-                        <div className="info">
-                            <h3>{tutor.nome}</h3>
-                            <p>📧 {tutor.email}</p>
-                            <p>📞 {tutor.telefone}</p>
-                            <p>📍 {tutor.cidade}</p>
-                        </div>
-                        <div className="actions">
-                            <button className="btn-outline" onClick={() => navigate(`/tutor/${tutor.id}/animais`)}>Ver Animais</button>
-                            <button className="btn-outline" onClick={() => navigate(`/tutor/editar/${tutor.id}`)}>Editar</button>
-                            <button className="btn-dangers" onClick={() => handleDeletarTutor(tutor.id)}>Excluir</button>
-                        </div>
+                <div className="list-header">
+                    <div className="list-titulo">
+                        <h2>Gerencie Tutores e Animais!</h2>
+                        <p>Cadastre novos tutores ou selecione um tutor para administrar os animais vinculados!</p>
                     </div>
-                ))}
+                    <Button type="button" variant="create" onClick={() => navigate('/tutor/novo')}>Criar Novo Tutor</Button>
+                </div>
+
+                <div className="list-tutores">
+                    {tutores.length === 0 && <p>Nenhum Tutor Cadastrado.</p>}
+
+                    {tutores.map((tutor) => (
+                        <TutorCard
+                            key={tutor.id}
+                            nome={tutor.nome}
+                            email={tutor.email}
+                            telefone={tutor.telefone}
+                            cidade={tutor.cidade}
+                            onClickVer={() => navigate(`/tutor/${tutor.id}/animais`)}
+                            onClickEdit={() => navigate(`/tutor/editar/${tutor.id}`)}
+                            onClickDelete={() => handleDeletarTutor(tutor.id)}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     )

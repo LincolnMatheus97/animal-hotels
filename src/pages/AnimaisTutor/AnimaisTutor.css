@@ -1,0 +1,22 @@
+.list-animais {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tutoranimais-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-top: 2rem;
+}
+
+.home-container header div {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}

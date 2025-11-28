@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import './Login.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { api } from '../services/api';
+import { api } from '../../services/api';
+import { Input } from '../../components/Input/Input';
+import { Button } from '../../components/Button/Button';
 
 export function EditarTutor() {
     const [nome, setNome] = useState('');
@@ -53,48 +54,40 @@ export function EditarTutor() {
             <div className='card'>
                 <h2>Editar Tutor</h2>
                 <form onSubmit={handleAtualizarTutor}>
-                    <div className='input-group'>
-                        <label>Nome Completo</label>
-                        <input 
-                            value={nome}
-                            onChange={e => setNome(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="Nome Completo"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                        required
+                    />
 
-                    <div className='input-group'>
-                        <label>E-mail</label>
-                        <input
-                            type='email'
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="E-mail"
+                        type="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        required
+                    />
 
-                    <div className='input-group'>
-                        <label>Telefone</label>
-                        <input
-                            value={telefone}
-                            onChange={e => setTelefone(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="Telefone"
+                        value={telefone}
+                        onChange={e => setTelefone(e.target.value)}
+                        required
+                    />
                     
-                    <div className='input-group'>
-                        <label>Cidade</label>
-                        <input
-                            value={cidade}
-                            onChange={e => setCidade(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="Cidade"
+                        value={cidade}
+                        onChange={e => setCidade(e.target.value)}
+                        required
+                    />
 
                     <div className='actions'>
-                        <button type='button' className='btn-outline' onClick={() => navigate('/home')}>
+                        <Button type="submit" variant="enter">Salvar Alteração</Button>
+                        <Button type="button" variant="cancelar" onClick={() => navigate('/home')}>
                             Cancelar
-                        </button>
-                        <button type='submit'>Salvar Alteração</button>
+                        </Button>
                     </div>
                 </form>
             </div>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { api } from '../services/api';
-import './Login.css';
+import { api } from '../../services/api';
+import { Button } from '../../components/Button/Button';
+import { Input } from '../../components/Input/Input';
+import './EditarAnimal.css';
 
 export function EditarAnimal() {
   const [nome, setNome] = useState('');
@@ -61,58 +63,44 @@ export function EditarAnimal() {
         <div className="card">
             <h2>Editar Animal</h2>
             <form onSubmit={handleEditarAnimal}>
-                <div className="input-group">
-                    <label>Nome do Animal</label>
-                    <input 
-                        value={nome} 
-                        onChange={e => 
-                        setNome(e.target.value)} 
-                        required 
-                    />
-                </div>
+                <Input
+                    label="Nome do Animal"
+                    value={nome}
+                    onChange={e => setNome(e.target.value)}
+                    required
+                />
 
-                <div className="input-group">
-                    <label>Especie do Animal</label>
-                    <input 
-                        value={especie} 
-                        onChange={e => 
-                        setImagem(e.target.value)} 
-                    />
-                </div>
+                <Input
+                    label="Especie do Animal"
+                    value={especie}
+                    onChange={e => setEspecie(e.target.value)}
+                />
 
-                <div className="input-group">
-                    <label>Raça</label>
-                    <input 
-                        value={raca} 
-                        onChange={e => 
-                        setRaca(e.target.value)} 
-                        required 
-                    />
-                </div>
+                <Input
+                    label="Raça"
+                    value={raca}
+                    onChange={e => setRaca(e.target.value)}
+                    required
+                />
 
-                <div className="input-group">
-                    <label>Idade</label>
-                    <input 
-                        value={idade} 
-                        onChange={e => setIdade(e.target.value)} 
-                        required 
-                    />
-                </div>
+                <Input
+                    label="Idade"
+                    value={idade}
+                    onChange={e => setIdade(e.target.value)}
+                    required
+                />
 
-                <div className="input-group">
-                    <label>URL da Foto</label>
-                    <input 
-                        value={imagem} 
-                        onChange={e => 
-                        setImagem(e.target.value)} 
-                    />
-                </div>
+                <Input
+                    label="URL da Foto"
+                    value={imagem}
+                    onChange={e => setImagem(e.target.value)}
+                />
 
                 <div className="actions">
-                    <button type="button" className="btn-outline" onClick={() => navigate(`/tutor/${tutorId}/animais`)}>
-                    Cancelar
-                    </button>
-                    <button type="submit">Salvar Alterações</button>
+                    <Button type="submit" variant="enter">Salvar Alterações</Button>
+                    <Button type="button" variant="cancelar" onClick={() => navigate(`/tutor/${tutorId}/animais`)}>
+                        Cancelar
+                    </Button>
                 </div>
             </form>
         </div>
