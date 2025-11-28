@@ -1,16 +1,5 @@
 import './Input.css';
-
-interface InputProps {
-    label: string;
-    type?: 'text' | 'email' | 'password' | 'tel' | 'number';
-    id?: string;
-    placeholder?: string;
-    value: string;
-    error?: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    required?: boolean;
-    disabled?: boolean;
-}
+import { InputProps } from '../../types/types';
 
 export function Input({
     label,

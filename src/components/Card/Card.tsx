@@ -1,9 +1,5 @@
 import './Card.css';
-
-interface CardProps {
-    children: React.ReactNode;
-    variant?: 'tutor' | 'animal';
-}
+import { CardProps } from '../../types/types';
 
 export function Card({ children, variant = 'tutor' }: CardProps) {
     return (

@@ -1,13 +1,17 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import './Login.css'
 import { api } from "../../services/api";
 import {Input } from "../../components/Input/Input";
 import { Button } from "../../components/Button/Button";
+import { ToastContext } from "../../context/ToastProvider";
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    const context = useContext(ToastContext)
+    const { showToast } = context;
 
     const navigate = useNavigate();
 
@@ -27,7 +31,7 @@ export function Login() {
             localStorage.setItem('token', token);
             localStorage.setItem('usuarioNome', usuario.nome);
 
-            alert(`Bem vindo, ${usuario.nome}!`);
+            showToast({ message: `Bem vindo, ${usuario.nome}!`, type: 'success' });
 
             navigate('/home');
         } catch (error: any) {
@@ -35,12 +39,12 @@ export function Login() {
             
             if (error.response) {
                 if (error.response.status === 401) {
-                    alert('Email ou senha incorretos!');
+                    showToast({ message: 'Email ou senha inválidos. Tente novamente.', type: 'error' });
                 } else {
-                    alert(`Erro: ${error.response.data?.erro || 'Erro no servidor'}`);
+                    showToast({ message: 'Erro ao conectar com o servidor. Tente novamente mais tarde.', type: 'error' });
                 }
             } else {
-                alert('Erro ao conectar com o servidor. Verifique se ele está rodando!');
+                showToast({ message: 'Erro ao conectar com o servidor. Verifique se ele está rodando!', type: 'error' });
             }
         }
     };

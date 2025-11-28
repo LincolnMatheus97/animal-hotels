@@ -1,13 +1,6 @@
 import './Button.css';
 import { Pencil, Dog, Trash2, ArrowLeft } from 'lucide-react';
-
-interface ButtonProps {
-    children?: React.ReactNode;
-    onClick?: () => void;
-    type?: 'button' | 'submit' | 'reset';
-    variant?: 'create' |'enter' | 'logout' |'view' | 'edit' | 'delete' |'cancelar' |'back';
-    fullWidth?: boolean;
-}
+import { ButtonProps } from '../../types/types';
 
 export function Button({ 
     children, 

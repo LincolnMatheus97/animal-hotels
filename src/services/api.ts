@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'https://animal-hotels-api.onrender.com',
+    //https://animal-hotels-api.onrender.com
+    baseURL: 'http://localhost:3000',
 });
 
 api.interceptors.request.use((config) => {

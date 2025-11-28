@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
+import { ToastContext } from "../../context/ToastProvider";
 
 export function CriarTutor() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
     const [cidade, setCidade] = useState('');
+
+    const context = useContext(ToastContext);
+    const { showToast } = context;
 
     const navigate = useNavigate();
 
@@ -24,11 +28,11 @@ export function CriarTutor() {
 
         try {
             await api.post('/tutores', novoTutor);
-            alert('Tutor cadastrado com sucesso!');
+            showToast({ message: 'Tutor cadastrado com sucesso!', type: 'success' });
             navigate('/home');
         } catch (error) {
             console.error(error);
-            alert('Erro ao cadastrar tutor.');
+            showToast({ message: 'Erro ao cadastrar tutor.', type: 'error' });
         }
     }
 
@@ -71,10 +75,10 @@ export function CriarTutor() {
                     />
 
                     <div className="actions">
-                        <Button type="submit" variant="enter">Salvar Tutor</Button>
                         <Button type="button" variant="cancelar" onClick={() => navigate('/home')}>
                             Cancelar
                         </Button>
+                        <Button type="submit" variant="enter">Salvar Tutor</Button>
                     </div>
 
                 </form>

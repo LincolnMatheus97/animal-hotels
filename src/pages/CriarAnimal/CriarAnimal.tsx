@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../services/api';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { ToastContext } from '../../context/ToastProvider';
 
 export function CriarAnimal() {
     const [nome, setNome] = useState('');
@@ -10,6 +11,9 @@ export function CriarAnimal() {
     const [raca, setRaca] = useState('');
     const [idade, setIdade] = useState('');
     const [imagem, setImagem] = useState('');
+
+    const context = useContext(ToastContext);
+    const { showToast } = context;
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -28,11 +32,11 @@ export function CriarAnimal() {
 
         try {
             await api.post('/animais', novoAnimal);
-            alert('Animal cadastrado com sucesso.');
+            showToast({ message: 'Animal cadastrado com sucesso!', type: 'success' });
             navigate(`/tutor/${id}/animais`);
         } catch (error) {
             console.log(error);
-            alert('Erro ao cadastrar animal');
+            showToast({ message: 'Erro ao cadastrar animal.', type: 'error' });
         }
     }
 
@@ -82,10 +86,10 @@ export function CriarAnimal() {
                     />
 
                     <div className="actions">
-                        <Button type="submit" variant="enter">Salvar Animal</Button>
                         <Button type="button" variant="cancelar" onClick={() => navigate(`/tutor/${id}/animais`)}>
                             Cancelar
                         </Button>
+                        <Button type="submit" variant="enter">Salvar Animal</Button>
                     </div>
                 </form>
             </div>
