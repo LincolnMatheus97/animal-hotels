@@ -13,7 +13,7 @@ interface TutorCardProps {
     onClickDelete: () => void;
 }
 
-export function TutorCard({key, nome, email, telefone, cidade, onClickVer, onClickEdit, onClickDelete }: TutorCardProps) {
+export function TutorCard({nome, email, telefone, cidade, onClickVer, onClickEdit, onClickDelete }: TutorCardProps) {
     return (
         <Card variant="tutor">
             <div className="info">
