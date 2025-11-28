@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../services/api";
-import './Home.css';
+import { api } from "../../services/api";
+import { Button } from "../../components/Button/Button";
+import {PawPrint} from 'lucide-react';
+import './AnimaisTutor.css';
+import { AnimalCard } from "../../components/AnimalCard/AnimalCard";
 
 interface Animal {
     id: string;
@@ -10,7 +13,7 @@ interface Animal {
     raca: string;
     idade: string;
     tutorId: string;
-    imagem?: string;
+    imagem: string;
 }
 
 interface Tutor {
@@ -57,37 +60,27 @@ export function AnimaisTutor() {
 
     return (
         <div className="home-container">
-            <header>
-                <h1>Animais de {tutor?.nome || "..."} 🐱</h1>
-                <div style={{display: 'flex', gap: '10px'}}>
-                    <button className="btn-outline" onClick={() => navigate('/home')}>Voltar</button>
-                    <button className="btn-add" onClick={() => navigate(`/tutor/${id}/animal/novo`)}>+ Novo Animal</button>
+            <header className="tutoranimais-header">
+                <h1>Animais de {tutor?.nome || "..."} <PawPrint size={40} /></h1>
+                <div>
+                    <Button variant="back" onClick={() => navigate('/home')}>Voltar</Button>
+                    <Button variant="create" onClick={() => navigate(`/tutor/${id}/animal/novo`)}>+ Novo Animal</Button>
                 </div>
             </header>
 
-            <div className="list-container">
+            <div className="list-animais">
                 {animais.length === 0 && <p>Este tutor ainda não possui animais cadastrados.</p>}
                 {animais.map((animal) => (
-                        <div key={animal.id} className="tutor-card">
-                        {animal.imagem && (
-                            <img 
-                                src={animal.imagem} 
-                                alt={animal.nome} 
-                                style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', marginRight: '1rem' }} 
-                            />
-                        )}
-
-                        <div className="info">
-                            <h3>{animal.nome}</h3>
-                            <p>🧬 Espécie: {animal.especie}</p>
-                            <p>🐕 Raça: {animal.raca}</p>
-                            <p>🎂 Idade: {animal.idade}</p>
-                        </div>
-                        <div className="actions">
-                            <button className="btn-outline" onClick={() => navigate(`/animal/editar/${animal.id}`)}>Editar</button>
-                            <button className="btn_danger" onClick={() => handleDeletarAnimal(animal.id)}>Excluir</button>
-                        </div>
-                    </div>
+                        <AnimalCard
+                            key={animal.id}
+                            nome={animal.nome}
+                            especie={animal.especie}
+                            raca={animal.raca}
+                            idade={animal.idade}
+                            imagem={animal.imagem}
+                            onClickEdit={() => navigate(`/animal/${animal.id}/editar`)}
+                            onClickDelete={() => handleDeletarAnimal(animal.id)}
+                        />
                 ))}
             </div>
         </div>

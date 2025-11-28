@@ -1,0 +1,10 @@
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+}
+
+.actions .btn-enter {
+    font-size: 16px;
+}

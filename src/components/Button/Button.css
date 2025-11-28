@@ -1,0 +1,139 @@
+/* Estilos base do botão */
+.btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+    width: fit-content;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+}
+
+
+/* Variante Primary (padrão) */
+.btn-enter {
+    background: linear-gradient(135deg, #f77c34 0%, #f05f6f 100%);
+    color: white;
+    width: 100%;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+.btn-enter:hover:not(:disabled) {
+    transform: scale(0.95);
+     filter: brightness(1.1);
+}
+
+/* Variante Secondary */
+
+.btn-logout {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid #f87082;
+    color: #f87082;
+    transition: transform 0.2s ease;
+}
+
+.btn-logout:hover:not(:disabled) {
+    background:#f36f80;
+    color: #fff;
+    transform: scale(0.95);
+}
+
+.btn-create {
+    background-color: #ff711f;
+    padding: 15px 40px;
+    border-radius: 16px;
+    transition: transform 0.2s ease;
+    box-shadow: rgba(255, 135, 65, 0.411) 0px 7px 29px 0px;
+    color: white;
+}
+
+.btn-create:hover:not(:disabled) {
+    background-color: #ff8036;
+    transform: scale(1.05);
+}
+
+.btn-view {
+    color: #5a4438;
+    background-color: transparent;
+    transition: transform 0.2s ease;
+    padding: 10px 20px;
+}
+
+.btn-view:hover:not(:disabled) {
+    color: #3f3f3f;
+    background-color: #e9e7e7;
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    color: #5a4438;
+    background-color: transparent;
+    transition: transform 0.2s ease;
+}
+
+.btn-edit:hover:not(:disabled) {
+    color: #ff7a28;
+    background-color: #ffe9db;
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    color: #5a4438;
+    background-color: transparent;
+    transition: transform 0.2s ease;
+}
+
+.btn-delete:hover:not(:disabled) {
+    color: #f83b3b;
+    background-color: #fcd3d3;
+    transform: scale(1.05);
+}
+
+.btn-cancelar {
+    background: #fff;
+    color: #5a4438;
+    border: 1px solid #5a4438;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.btn-cancelar:hover:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-back {
+    background: #f0f0f0;
+    color: #5a4438;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.btn-back:hover:not(:disabled) {
+    background: #e0e0e0;
+    transform: scale(0.95);
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+}
+
+.btn-icon-with-text {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
