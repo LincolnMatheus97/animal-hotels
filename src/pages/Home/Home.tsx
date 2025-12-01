@@ -94,7 +94,7 @@ export function Home() {
                             telefone={tutor.telefone}
                             cidade={tutor.cidade}
                             onClickVer={() => navigate(`/tutor/${tutor.id}/animais`)}
-                            onClickEdit={() => navigate(`/tutor/editar/${tutor.id}`)}
+                            onClickEdit={() => navigate(`/tutor/${tutor.id}/editar`)}
                             onClickDelete={() => abrirModalDeletar(tutor.id, tutor.nome)}
                         />
                     ))}

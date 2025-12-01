@@ -84,7 +84,7 @@ export function AnimaisTutor() {
                         raca={animal.raca}
                         idade={animal.idade}
                         imagem={animal.imagem}
-                        onClickEdit={() => navigate(`/animal/editar/${animal.id}`)}
+                        onClickEdit={() => navigate(`/animal/${animal.id}/editar`)}
                         onClickDelete={() => abrirModalDeletar(animal.id, animal.nome)}
                     />
                 ))}

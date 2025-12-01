@@ -17,13 +17,13 @@ export function AppRoutes() {
 
             <Route path="/tutor/novo" element={<RotasPrivadas>  <CriarTutor/> </RotasPrivadas>} />
 
-            <Route path="/tutor/editar/:id" element={<RotasPrivadas> <EditarTutor/> </RotasPrivadas>} />
+            <Route path="/tutor/:id/editar" element={<RotasPrivadas> <EditarTutor/> </RotasPrivadas>} />
 
             <Route path="/tutor/:id/animais" element={<RotasPrivadas> <AnimaisTutor/> </RotasPrivadas>} />
 
             <Route path="/tutor/:id/animal/novo" element={<RotasPrivadas> <CriarAnimal/> </RotasPrivadas>} />
 
-            <Route path="/animal/editar/:id" element={<RotasPrivadas> <EditarAnimal/> </RotasPrivadas>} />
+            <Route path="/animal/:id/editar" element={<RotasPrivadas> <EditarAnimal/> </RotasPrivadas>} />
 
             <Route path="*" element={<Login />} />
         </Routes>
